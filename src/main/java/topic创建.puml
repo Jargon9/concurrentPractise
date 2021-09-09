@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+Mapping管理模块 -> ZK: 读取/config/partitionQueueMapping/{topic},更新本地的映射关系缓存
+Mapping管理模块 ->x ZK: 组装「分区排布」,不更新/broker/topics/{topics}
+Mapping管理模块 -> Controller: 修改自管理 云topic 的元数据，将相关数据传递给 Controller 元数据发送模块。
+Controller ->x Server: 此时不发送 LeaderAndIsr
+Controller -> Server: 发送  Metadata 请求
+Server -> Server: 将 Metadata 更新到缓存
+Server ->x Server: 不再 创建log文件，不再将副本和日志注册到管理器
+@enduml

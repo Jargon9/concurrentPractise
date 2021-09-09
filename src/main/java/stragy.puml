@@ -1,0 +1,8 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+broker -> Serverless: 单个节点 broker 单个topic的 流量
+Serverless --> ZK: 计算策略，将结果写入zk
+@enduml
